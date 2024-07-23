@@ -8,5 +8,5 @@ The application is user-friendly, allowing teachers to enter student information
 The program also allows teachers to add additional classes as the organization grows over time.
 
 How to run:
-●	Open “Home Page.html” in a web browser (works best on Google Chrome or Microsoft Edge). From here, you can use the on-screen navigation to click through pages and interact with the website.
-●	View code using an IDE such as Visual Studio Code or right click on the page in your web browser and click “view page source.”
+- Open “Home Page.html” in a web browser (works best on Google Chrome or Microsoft Edge). From here, you can use the on-screen navigation to click through pages and interact with the website.
+- View code using an IDE such as Visual Studio Code or right click on the page in your web browser and click “view page source.”
