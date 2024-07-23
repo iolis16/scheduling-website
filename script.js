@@ -1,5 +1,4 @@
   const firebaseConfig = {
-    apiKey: "AIzaSyBB-UlbxRAuYeJOmyjf2h5JPqFMI8rHgfU",
     authDomain: "ib-cs-sl-ia-3952d.firebaseapp.com",
     databaseURL: "https://ib-cs-sl-ia-3952d-default-rtdb.firebaseio.com",
     projectId: "ib-cs-sl-ia-3952d",
