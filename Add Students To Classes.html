@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Students To Classes</title>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="./style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <form action="" id="classAssignment">
+        <h1>Select a Class</h1>
+        <select id="classes" name="classes">
+          <option value="">-- Choose a class --</option>
+        </select>
+        
+  
+        <button type="submit" class="registerbtn" onclick="window.location.href='View Classes.html';">Add Student To Class</button>
+    </form>
+
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    import { getDatabase, ref, child, set, remove, onValue, get, push } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBB-UlbxRAuYeJOmyjf2h5JPqFMI8rHgfU",
+        authDomain: "ib-cs-sl-ia-3952d.firebaseapp.com",
+        databaseURL: "https://ib-cs-sl-ia-3952d-default-rtdb.firebaseio.com",
+        projectId: "ib-cs-sl-ia-3952d",
+        storageBucket: "ib-cs-sl-ia-3952d.appspot.com",
+        messagingSenderId: "1061247167164",
+        appId: "1:1061247167164:web:b939c2f8f0dc96c99bfeb9",
+        measurementId: "G-8RX2L53MZZ"
+    };
+
+        const app = initializeApp(firebaseConfig);
+		const db = getDatabase(app);
+        const classesRef = ref(db, 'classes');
+        const classSelect = document.getElementById('classes');
+  
+        
+        get(classesRef).then((snapshot) => {
+            const classes = snapshot.val();
+            for (const classId in classes) {
+                const option = document.createElement('option');
+                option.value = classId;
+                option.textContent = classes[classId].day + " " + classes[classId].time + ", Taught by " + classes[classId].teacher;
+                classSelect.appendChild(option);
+            }
+        }).catch((error) => {
+        console.error(error);
+        });
+
+            const classAssignmentRef = ref(db, "classAssignment");
+
+            document.getElementById("classAssignment").addEventListener("submit", submitForm);
+
+            function submitForm(e){
+                e.preventDefault();
+                const studentInfo = localStorage.getItem('selectedItem');
+
+                console.log(localStorage.getItem('selectedStudentFname'));
+                console.log(localStorage.getItem('selectedStudentLname'));
+
+                const classesSelect = document.getElementById('classes');
+                const selectedClass = JSON.stringify(classesSelect.value);
+
+                const fname = localStorage.getItem('selectedStudentFname');
+                const lname = localStorage.getItem('selectedStudentLname');
+
+                saveClassAssignment(selectedClass, fname, lname);
+
+            }
+
+            const saveClassAssignment = (selectedClass, fname, lname) => {
+                const newClassAssignmentRef = push(classAssignmentRef);
+                const newClassAssignmentKey = newClassAssignmentRef.key;
+
+                set(child(classAssignmentRef, newClassAssignmentKey), {
+                    classId: selectedClass,
+                    fname: fname,
+                    lname: lname
+                })
+                .then(() => {
+                    console.log('Data saved successfully!');
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+            };
+
+
+            const getElementVal = (id) => {
+                return document.getElementById(id).value;
+            };
+    </script>
+    <button class="homepage" onclick="window.location.href='Home Page.html';">Home Page</button>
+
+</body>
+</html>

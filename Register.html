@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Student Registration</title>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="./style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <form action="" id="registrationForm">
+            <h1>New Student Registration</h1>
+            <hr>
+
+            <label for="fname"><b>First Name: </b></label> <br>
+            <input type="text" name="fname" id="fname" required> <br>
+
+            <label for="lname"><b>Last Name: </b></label> <br>
+            <input type="text" name="lname" id="lname" required> <br>
+
+            <label for="age"><b>Age: </b></label> <br>
+            <input type="number" name="age" id="age" required> <br>
+
+            <br> <hr>
+
+            <h3>Parent Information</h3>
+            <label for="parentfname"><b>First Name: </b></label> <br>
+            <input type="text" name="parentfname" id="parentfname" required> <br>
+
+            <label for="parentlname"><b>Last Name: </b></label> <br>
+            <input type="text" name="parentlname" id="parentlname" required> <br>
+
+            <label for="phone"><b>Phone Number: </b></label> <br>
+            <input type="number" name="phone" id="phone" required> <br>
+
+            <label for="email"><b>Email Address: </b></label> <br>
+            <input type="email" name="email" id="email" required> <br>
+
+            <hr>
+            <button type="submit" class="registerbtn">Register</button>
+
+    </form>
+
+    <script src = https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js></script>
+    <script src = "script.js"></script>
+
+    
+    <script>
+       var form = document.getElementById('registrationForm');
+        var submitButton = form.querySelector('button[type="submit"]');
+      
+        submitButton.addEventListener('click', function(event) {
+            window.location.href = 'Select Students.html';
+        });
+      </script>
+      
+    <button class="homepage" onclick="window.location.href='Home Page.html';">Home Page</button>
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+/* style text */
+h1{
+    color: #800020;
+    margin: 0px;
+    padding: 10px;
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Poppins', sans-serif;
+}
+
+h2{
+  color:#000;
+  margin: 0px;
+  padding: 10px;
+  text-align: center;
+  font-size: 30px;
+  font-family: 'Poppins', sans-serif;
+}
+
+h3{
+    color: #913831;
+    margin: 15px;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+p{
+  color:#000;
+  margin: 10px;
+  padding: 10px;
+  text-align: left;
+  font-size: 15px;
+  font-family:'Roboto', sans-serif;
+  background-color: #f1f1f1;
+}
+
+
+/* vertical menu on home page */
+.vertical-menu {
+  width: full;
+}
+
+.vertical-menu a {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.vertical-menu a:hover {
+  background-color: #800020;
+  color: white;
+}
+
+* {box-sizing: border-box}
+
+/* registration form */
+
+.container {
+  padding: 15px;
+}
+
+label {
+  text-align: left;
+  padding: 15px;
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  margin: 2px;
+  text-decoration: none;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.registerbtn {
+  background-color: #800020;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  width: 100%;
+  opacity: 0.9;
+  font-size: 15px;
+}
+
+.registerbtn:hover {
+  opacity:1;
+}
+
+.homepage {
+  background-color: #986868;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  padding: 5px;
+  margin: 8px 0;
+  border: none;
+  width: 100%;
+  opacity: 0.9;
+  text-align: center;
+  display: block;
+  font-size: 12px;
+}
+
+.homepage:hover {
+  opacity:1;
+}
+
+/* unordered list */
+
+ul{
+  list-style: none;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+  text-decoration: none;
+  width: 100%;
+}
+
+ul li{
+  padding: 20px;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  width: 100%;
+  display: block;
+}
+
+a:link{
+  text-decoration: none;
+  color: #000;
+}
+
+ul li:nth-child(3n){
+  background-color:#E3735E;
+}
+
+ul li:nth-child(3n+1){
+  clear:both;
+  border-left:1px solid #000;
+  background-color:#FAA0A0;
+}
+
+ul li:nth-child(-n+3){
+  border-top:1px solid #000;
+  border-left: 1px solid #000;
+}
+
+/* Select classes */
+select{
+  background-color: #986868;
+  border: none;
+  color: white;
+  text-align: center;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  padding: 100px;
+
+}
+

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>View Classes</title>
+  <!-- stylesheet -->
+  <link rel="stylesheet" href="./style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>View Classes and Students</h1>
+  <ul id="output"></ul>
+  <ul id="classOutput"></ul>
+  <ul id="classAssignmentOutput"></ul>
+
+  <script type="module">
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyBB-UlbxRAuYeJOmyjf2h5JPqFMI8rHgfU",
+        authDomain: "ib-cs-sl-ia-3952d.firebaseapp.com",
+        databaseURL: "https://ib-cs-sl-ia-3952d-default-rtdb.firebaseio.com",
+        projectId: "ib-cs-sl-ia-3952d",
+        storageBucket: "ib-cs-sl-ia-3952d.appspot.com",
+        messagingSenderId: "1061247167164",
+        appId: "1:1061247167164:web:b939c2f8f0dc96c99bfeb9",
+        measurementId: "G-8RX2L53MZZ"
+    };
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    const app = initializeApp(firebaseConfig);
+    const userList = document.getElementById('registrationForm');
+
+    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+    const db = getDatabase(app);
+
+    // Get reference to the "classAssignment" node in firebase
+    async function getClassAssignments() {
+        const classAssignmentRef = ref(db, "classAssignment");
+        const classArray = [];
+        const snapshot = await get(classAssignmentRef);
+
+        if (snapshot.exists()) {
+            const promises = [];
+            snapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                const childKey = childSnapshot.key;
+                const childNodeRef = child(classAssignmentRef, childKey);
+
+                const promise = get(child(childNodeRef, 'classId')).then((classIdSnapshot)=> {
+                    const classId = classIdSnapshot.val();
+                    childData.classId = classId;
+                    classArray.push(childData);
+                });
+                promises.push(promise);
+            });
+            await Promise.all(promises);
+
+        const classesRef = ref(db, "classes");
+        const classArray2 = [];
+        const snapshot2 = await get(classesRef);
+
+        // Get key for Class ID, push the class data to the console
+        if (snapshot2.exists()) {
+            const promises = [];
+            snapshot2.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                const childKey = childSnapshot.key;
+                const childNodeRef = child(classesRef, childKey);
+
+                const promise = get(child(childNodeRef, 'day')).then((classIdSnapshot)=> {
+                    const day = classIdSnapshot.val();
+                    childData.day = day;
+                    childData.classId = childSnapshot.key;
+                    classArray2.push(childData);
+                });
+                promises.push(promise);
+            });
+            await Promise.all(promises);
+
+          //Loop through ClassArray and ClassArray2 to match up student names with class day and time
+          for(let i = 0; i < classArray.length; i++){
+            const classID = classArray[i].classId;
+            //Find class with the same ID
+            for(let j = 0; j < classArray2.length; j++){
+              if(JSON.stringify(classArray2[j].classId) === classID){
+                console.log(classArray[i].fname + classArray2[j].day + classArray2[j].time);
+
+              //Print to unordered list
+              const classAssignmentOutputDiv = document.getElementById("classAssignmentOutput");
+              const listItem3 = document.createElement("li");
+              const classArrayFind = classArray[i];
+              const classArray2Find = classArray2[j];
+              listItem3.innerText = `Class: ${classArray2Find.day} ${classArray2Find.time} // Student Name: ${classArrayFind.fname} ${classArrayFind.lname}`;
+              listItem3.addEventListener("click", () => {
+                  localStorage.setItem("selectedItem", JSON.stringify(classArray[i]));
+                  localStorage.setItem("selectedItem", JSON.stringify(classArray2[j]));
+              });
+              classAssignmentOutputDiv.appendChild(listItem3);
+              break;
+              }
+            }
+          }
+
+
+        } else {
+            console.log("No data available");
+        }
+    }}
+    getClassAssignments().catch((error) => {
+        console.error(error);
+    });;
+
+</script>
+<button class="homepage" onclick="window.location.href='Home Page.html';">Home Page</button>
+</body>
+</html>

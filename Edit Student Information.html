@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Student Information</title>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="./style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Update Student Information</h1>
+              
+      <form action="" id="updateForm">
+        <h2>Edit Student Information</h2>
+
+        <label for="fname"><b>First Name: </b></label> <br>
+        <input type="text" name="fname" id="fname" required> <br>
+
+        <label for="lname"><b>Last Name: </b></label> <br>
+        <input type="text" name="lname" id="lname" required> <br>
+
+        <label for="age"><b>Age: </b></label> <br>
+        <input type="number" name="age" id="age" required> <br>
+
+        <br> <hr>
+
+        <h3>Parent Information</h3>
+        <label for="parentfname"><b>First Name: </b></label> <br>
+        <input type="text" name="parentfname" id="parentfname" required> <br>
+
+        <label for="parentlname"><b>Last Name: </b></label> <br>
+        <input type="text" name="parentlname" id="parentlname" required> <br>
+
+        <label for="phone"><b>Phone Number: </b></label> <br>
+        <input type="number" name="phone" id="phone" required> <br>
+
+        <label for="email"><b>Email Address: </b></label> <br>
+        <input type="email" name="email" id="email" required> <br>
+
+        <hr>
+		<button type="submit" class="registerbtn">Update Information</button>
+
+	</form>
+
+	<script type="module">
+		// Initialize Firebase
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+		import { getDatabase, ref, child, set, remove } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+
+		const firebaseConfig = {
+            apiKey: "AIzaSyBB-UlbxRAuYeJOmyjf2h5JPqFMI8rHgfU",
+            authDomain: "ib-cs-sl-ia-3952d.firebaseapp.com",
+            databaseURL: "https://ib-cs-sl-ia-3952d-default-rtdb.firebaseio.com",
+            projectId: "ib-cs-sl-ia-3952d",
+            storageBucket: "ib-cs-sl-ia-3952d.appspot.com",
+            messagingSenderId: "1061247167164",
+            appId: "1:1061247167164:web:b939c2f8f0dc96c99bfeb9",
+            measurementId: "G-8RX2L53MZZ"
+    };
+
+		const app = initializeApp(firebaseConfig);
+		const db = getDatabase(app);
+
+		const updateForm = document.getElementById("updateForm");
+
+		// Get the selected item from localStorage
+		const selectedItem = JSON.parse(localStorage.getItem("selectedItem"));
+
+		// Populate the form with the selected item's data
+		document.getElementById("fname").value = selectedItem.fname;
+		document.getElementById("lname").value = selectedItem.lname;
+		document.getElementById("age").value = selectedItem.age;
+        document.getElementById("parentfname").value = selectedItem.parentfname;
+        document.getElementById("parentlname").value = selectedItem.parentlname;
+        document.getElementById("email").value = selectedItem.email;
+        document.getElementById("phone").value = selectedItem.phone;
+
+		// Update the selected item in Firebase
+		updateForm.addEventListener("submit", (event) => {
+			event.preventDefault();
+			const fname = document.getElementById("fname").value;
+			const lname = document.getElementById("lname").value;
+			const age = document.getElementById("age").value;
+            const parentfname = document.getElementById("parentfname").value;
+            const parentlname = document.getElementById("parentlname").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+			
+
+			const registrationFormRef = ref(db, "registrationForm/" + selectedItem.id);
+			set(registrationFormRef, {
+                fname: fname,
+				lname: lname,
+				age: age,
+				parentfname: parentfname,
+                parentlname: parentlname,
+                email: email,
+                phone: phone
+			})
+			.then(() => {
+				alert("User information updated successfully");
+				window.location.href = "Home Page.html";
+			})
+			.catch((error) => {
+				console.error(error);
+				alert("An error occurred while updating the user information");
+			});
+		});
+
+	</script>
+    <button class="homepage" onclick="window.location.href='Home Page.html';">Home Page</button>
+</body>
+</html>

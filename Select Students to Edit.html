@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Student Information</title>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="./style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Update Student Information</h1>
+  <h2>Please select which student's information you would like to view or update.'</h2>
+  <ul id="output"></ul>
+
+    <script type="module">
+
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyBB-UlbxRAuYeJOmyjf2h5JPqFMI8rHgfU",
+        authDomain: "ib-cs-sl-ia-3952d.firebaseapp.com",
+        databaseURL: "https://ib-cs-sl-ia-3952d-default-rtdb.firebaseio.com",
+        projectId: "ib-cs-sl-ia-3952d",
+        storageBucket: "ib-cs-sl-ia-3952d.appspot.com",
+        messagingSenderId: "1061247167164",
+        appId: "1:1061247167164:web:b939c2f8f0dc96c99bfeb9",
+        measurementId: "G-8RX2L53MZZ"
+    };
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
+    const app = initializeApp(firebaseConfig);
+    const userList = document.getElementById('registrationForm');
+
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js";
+    const db = getDatabase(app);
+    const listItem1 = document.createElement('items');
+
+    const registrationFormRef = await ref(db, "registrationForm");
+
+    const dataArray = [];
+    get(registrationFormRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+          const childData = childSnapshot.val();
+          dataArray.push(childData);
+        });
+        
+        const outputDiv = document.getElementById("output");
+        for (let i = 0; i < dataArray.length; i++) {
+          const listItem = document.createElement("li");
+          const nameAge = dataArray[i].fname + " " + dataArray[i].lname + ", age " + dataArray[i].age;
+          listItem.innerText = nameAge;
+          listItem.addEventListener("click", () => {
+            localStorage.setItem("selectedItem", JSON.stringify(dataArray[i]));
+            localStorage.setItem("selectedStudentFname", dataArray[i].fname);
+            localStorage.setItem("selectedStudentLname", dataArray[i].lname);
+            window.location.href = 'Edit Student Information.html'
+          });
+          outputDiv.appendChild(listItem);
+        }
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+
+</script>
+
+<button class="homepage" onclick="window.location.href='Home Page.html';">Home Page</button>
+
+</body>
+</html>
